@@ -1,0 +1,174 @@
+/* Variables */
+:root {
+    --globe-width: 12px;
+    --globe-height: 28px;
+    --globe-spacing: 40px;
+    --globe-spread: 3px;
+    --light-off-opacity: 0.4;
+}
+
+body {
+    background: #000000;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lights {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+
+.light {
+    margin: 0 5px;
+    border-radius: 50% 50% 0 0;
+    background-color: grey;
+    position: relative;
+    transition: opacity 0.5s;
+}
+
+.light::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 10px;
+    background-color: black;
+    border-radius: 2px;
+}
+
+.on {
+    background-color: red;
+}
+
+.lightrope {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    margin-top: 20px;
+}
+
+.lightrope::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: black;
+    z-index: -1;
+}
+
+.lightrope .light {
+    position: relative;
+    animation-fill-mode: both; 
+    animation-iteration-count: infinite;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+    width: var(--globe-width);
+    height: var(--globe-height);
+    border-radius: 50%;
+    margin: calc(var(--globe-spacing) / 2);
+    display: inline-block;
+    background: rgba(0, 247, 165, 1);
+    box-shadow: 0px calc(var(--globe-height) / 6) calc(var(--globe-width) * 2) var(--globe-spread) rgba(0, 247, 165, 1);
+    animation-name: flash-1;
+    animation-duration: 2s;
+}
+
+.lightrope .light:nth-child(2n+1) {
+    background: rgba(0, 255, 255, 1);
+    box-shadow: 0px calc(var(--globe-height) / 6) calc(var(--globe-width) * 2) var(--globe-spread) rgba(0, 255, 255, 0.5);
+    animation-name: flash-2;
+    animation-duration: 0.4s;
+}
+
+.lightrope .light:nth-child(4n+2) {
+    background: rgba(247, 0, 148, 1);
+    box-shadow: 0px calc(var(--globe-height) / 6) calc(var(--globe-width) * 2) var(--globe-spread) rgba(247, 0, 148, 1);
+    animation-name: flash-3;
+    animation-duration: 1.1s;
+}
+
+.lightrope .light:nth-child(odd) {
+    animation-duration: 1.8s;
+}
+
+.lightrope .light:nth-child(3n+1) {
+    animation-duration: 1.4s;
+}
+
+.lightrope .light:before {
+    content: "";
+    position: absolute;
+    background: #222;
+    width: calc(var(--globe-width) - 2px);
+    height: calc(var(--globe-height) / 3);
+    border-radius: 3px;
+    top: calc(0px - (var(--globe-height) / 6));
+    left: 1px;
+}
+
+.lightrope .light:after {
+    content: "";
+    top: calc(0px - var(--globe-height) / 2);
+    left: calc(var(--globe-width) - 3px);
+    position: absolute;
+    width: calc(var(--globe-spacing) + 12px);
+    height: calc(var(--globe-height) / 3 * 2);
+    border-bottom: solid #222 2px;
+    border-radius: 50%;
+}
+
+.lightrope .light:last-child:after {
+    content: none;
+}
+
+.lightrope .light:first-child {
+    margin-left: calc(-1 * var(--globe-spacing));
+}
+
+@keyframes flash-1 { 
+    0%, 100% { 
+        background: rgba(0, 247, 165, 1);
+        box-shadow: 0px calc(var(--globe-height) / 6) calc(var(--globe-width) * 2) var(--globe-spread) rgba(0, 247, 165, 1); 
+    } 
+    50% { 
+        background: rgba(0, 247, 165, var(--light-off-opacity));
+        box-shadow: 0px calc(var(--globe-height) / 6) calc(var(--globe-width) * 2) var(--globe-spread) rgba(0, 247, 165, 0.2); 
+    }
+}
+
+@keyframes flash-2 { 
+    0%, 100% { 
+        background: rgba(0, 255, 255, 1);
+        box-shadow: 0px calc(var(--globe-height) / 6) calc(var(--globe-width) * 2) var(--globe-spread) rgba(0, 255, 255, 1); 
+    } 
+    50% { 
+        background: rgba(0, 255, 255, var(--light-off-opacity));
+        box-shadow: 0px calc(var(--globe-height) / 6) calc(var(--globe-width) * 2) var(--globe-spread) rgba(0, 255, 255, 0.2); 
+    }
+}
+
+@keyframes flash-3 { 
+    0%, 100% { 
+        background: rgba(247, 0, 148, 1);
+        box-shadow: 0px calc(var(--globe-height) / 6) calc(var(--globe-width) * 2) var(--globe-spread) rgba(247, 0, 148, 1); 
+    } 
+    50% { 
+        background: rgba(247, 0, 148, var(--light-off-opacity));
+        box-shadow: 0px calc(var(--globe-height) / 6) calc(var(--globe-width) * 2) var(--globe-spread) rgba(247, 0, 148, 0.2); 
+    }
+}
